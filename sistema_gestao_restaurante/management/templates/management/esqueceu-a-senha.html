@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+
+	<title>Recuperar Acesso</title>
+
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/animated-headline.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/style.css' %}">
+
+</head>
+
+<body>
+	<!-- ? Preloader Start -->
+	<div id="preloader-active">
+		<div class="preloader d-flex align-items-center justify-content-center">
+			<div class="preloader-inner position-relative">
+				<div class="preloader-circle"></div>
+				<div class="preloader-img pere-text">
+					<img src="{% static 'assets/images/logo/loder.png' %}" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<main class="login-body" data-vide-bg="{% static 'assets/images/esqueciBg.mp4' %}">
+		<form class="form-default">
+			<div class="login-form">
+				<!-- logo-login -->
+				<div class="logo-login">
+					<a href="login.html"><img src="{% static 'assets/images/logo/loder.png' %}" alt=""></a>
+				</div>
+				<h2>Esqueceu a sua senha?</h2>
+				<div class="form-input">
+					<label for="username">Email</label>
+					<input type="text" id="username" name="username" placeholder="Email" autocomplete="email">
+				</div>
+				<div class="form-input pt-30">
+					<input type="submit" name="submit" value="Enviar">
+				</div>
+				<!-- Register -->
+				<a href="cadastro.html" class="registration">Cadastro</a>
+			</div>
+		</form>
+	</main>
+	</div>
+
+	<script src="{% static '/assets/javascripts/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<!-- Video bg -->
+	<script src="{% static '/assets/javascripts/js/jquery.vide.js' %}"></script>
+	<!--  main Jquery -->
+	<script src="{% static '/assets/javascripts/js/main.js' %}"></script>
+
+</body>
+
+</html>

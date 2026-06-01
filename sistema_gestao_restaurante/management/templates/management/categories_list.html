@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Lista Categoria{% endblock title %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'assets/vendors/sweetalert/sweetalert.css'%}" />
+{% endblock extra_head %}
+
+{% block content_title %}Lista Categoria{% endblock content_title %}
+
+{% block content %}<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+    <!-- Card -->
+    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+        <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total de categorias</p>
+            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{total_categories}}</p>
+        </div>
+    </div>
+    <!-- Card -->
+
+</div>
+<div class="flex justify-end mb-6 text-lg gap-6">
+    <button @click="openModal"
+        class="flex items-center justify-between px-4 py-2 text-sm font-bold leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+        <svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+        </svg>
+        <span>Nova Categoria</span>
+    </button>
+</div>
+
+<!-- New Table -->
+<div class="w-full overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+        <table class="w-full whitespace-no-wrap">
+            <thead>
+                <tr
+                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3">Nome</th>
+                    <th class="px-4 py-3">Descrição</th>
+                    <th class="px-4 py-3">Opções 
+                        <!-- <button
+                            class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
+                            @click="openModal">
+                            Cadastrar
+                        </button> -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                {% for category in categories %}
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3 text-xs">
+                        <span class="px-4 py-1 font-semibold bg-blue-100 text-gray-700 rounded-full dark:text-gray-700">
+                            {{category.name}}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                        {{category.description}}
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">
+                            <a
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit" href="{% url 'management:category_edit' pk=category.pk %}">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Delete" onclick="excluir({{category.pk}})">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3 text-center" colspan="5">
+                        Nenhuma Categoria Registado!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">
+            Mostrando {{ categories.start_index }}-{{ categories.end_index }} de {{ categories.paginator.count }}
+        </span>
+        <span class="col-span-2"></span>
+        <!-- Pagination -->
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+                <ul class="inline-flex items-center">
+                    {% if categories.has_previous %}
+                    <li>
+                        <a href="?page=1"
+                            class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Primeira Página">
+                            &laquo; Primeira
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page={{ categories.previous_page_number }}"
+                            class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Página Anterior">
+                            Anterior
+                        </a>
+                    </li>
+                    {% endif %}
+    
+                    {% for num in categories.paginator.page_range %}
+                    <li>
+                        <a href="?page={{ num }}"
+                            class="px-3 py-1 {% if categories.number == num %}text-white bg-blue-600{% else %}rounded-md focus:outline-none focus:shadow-outline-purple{% endif %}">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endfor %}
+    
+                    {% if categories.has_next %}
+                    <li>
+                        <a href="?page={{ categories.next_page_number }}"
+                            class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Próxima Página">
+                            Próxima
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page={{ categories.paginator.num_pages }}"
+                            class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Última Página">
+                            &raquo; Última
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </span>
+    </div>
+</div>
+
+<!-- Modal backdrop. This what you want to place close to the closing body tag -->
+<div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+        @keydown.escape="closeModal"
+        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        role="dialog" id="modal">
+        <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+        <header class="flex justify-end">
+            <button
+                class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                aria-label="close" @click="closeModal">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                    <path
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <!-- Modal body -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="mt-4 mb-6">
+                <!-- Modal title -->
+                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                    Cadastrar Categoria
+                </p>
+                <!-- Modal description -->
+                {{ form.non_field_errors }}
+                {{ form.errors }}
+                {{ form.as_p }}
+            </div>
+            <footer
+                class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+                <button @click="closeModal"
+                    class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                    Cancel
+                </button>
+                <button
+                    class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    Salvar
+                </button>
+            </footer>
+        </form>
+    </div>
+</div>
+<!-- End of modal backdrop -->
+{% endblock content %}
+
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function excluir(pk) {
+        swal({
+            title: "Tem certeza?",
+            text: "Essa categoria não poderá ser recuperado após a exclusão.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e02424",
+            confirmButtonText: "Sim, exclua agora!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            // Chamada AJAX para excluir o livro
+            $.ajax({
+                type: "POST",
+                url: `/category/${pk}/delete/`,  // Ajuste conforme a estrutura do seu projeto
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // Exibindo mensagem de sucesso após a exclusão
+                    swal("Excluído!", "A categoria foi excluído com sucesso.", "success");
+                    // Redirecionando para a lista de livros após a exclusão
+                    setTimeout(() => {
+                        window.location.href = "{% url 'management:list_categories' %}";
+                    }, 1000);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // Exibindo mensagem de erro em caso de falha
+                    swal("Erro", "Erro ao excluir a categoria.", "error");
+                }
+            });
+        });
+    }
+</script>
+
+<script src="{% static 'assets/javascripts/jss/alpine.min.js'%}"></script>
+<script src="{% static 'assets/javascripts/jss/init-alpine.js'%}"></script>
+<script src="{% static 'assets/vendors/sweetalert/sweetalert-dev.js'%}"></script>
+{% endblock extra_scripts %}

@@ -1,0 +1,63 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/animated-headline.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/style.css' %}">
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'assets/images/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start-->
+
+
+<main class="login-body" data-vide-bg="{% static 'assets/images/loginBg.mp4' %}">
+    <!-- Login Admin -->
+    <form class="form-default"  method="POST">
+	{% csrf_token %}
+        <div class="login-form">
+            <div class="logo-login">
+                <a href="index.html"><img src="{% static 'assets/images/logo/loder.png' %}" alt=""></a>
+            </div>
+            <h2>Login</h2>
+            <div class="form-input">
+                <label for="username">Email</label>
+                <input  type="text" id="username" name="username" placeholder="Username" autocomplete="name">
+            </div>
+            <div class="form-input">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password">
+            </div>
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="login">
+            </div>
+            <a href="esqueceu-a-senha.html" class="forget">Esqueceu a password?</a>
+            <a href="cadastro.html" class="registration">Cadastro</a>
+        </div>
+    </form>
+</main>
+
+   <script src="{% static '/assets/javascripts/js/vendor/jquery-1.12.4.min.js' %}"></script>
+   <script src="{% static '/assets/javascripts/js/jquery.vide.js' %}"></script>
+   <script src="{% static '/assets/javascripts/js/main.js' %}"></script>
+    
+    </body>
+</html>

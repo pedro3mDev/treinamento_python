@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block extra_head %}
+<style>
+    .scrollable-form {
+        max-height: 400px;
+        /* Defina a altura máxima conforme necessário */
+        overflow-y: auto;
+        /* Adicione uma barra de rolagem vertical quando necessário */
+    }
+</style>
+{% endblock extra_head %}
+
+{% block content_title %}{{title}}{% endblock content_title %}
+
+{% block content %}
+
+<div class="scrollable-form"></div>
+    <!-- New Form -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="px-4 py-3 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+                {{ form.non_field_errors }}
+                {{ form.errors }}
+                {{ form.as_p }}
+            </div>
+
+            <div class="flex justify-end mb-6 mt-6 text-sm gap-6">
+                <button
+                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:shadow-outline-blue">
+                    Limpar
+                </button>
+                <button
+                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+<script src="{% static 'assets/javascripts/jss/file-upload.js'%}"></script>
+
+{% block extra_scripts %}{% endblock extra_scripts %}

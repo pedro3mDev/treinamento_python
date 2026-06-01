@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Cadastro Funcionario{% endblock title %}
+
+{% block extra_head %}{% endblock extra_head %}
+
+{% block content_title %}Cadastro Funcionario{% endblock content_title %}
+
+{% block content %}
+<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+	<!-- Card -->
+	<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+	  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+		<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+		  <path
+			d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+		  </path>
+		</svg>
+	  </div>
+	  <div>
+		<p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total de clientes</p>
+		<p class="text-lg font-semibold text-gray-700 dark:text-gray-200">1.298</p>
+	  </div>
+	</div>
+	<!-- Card -->
+	<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+	  <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+		<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+		  <path
+			d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+		  </path>
+		</svg>
+	  </div>
+	  <div>
+		<p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Funcionarios</p>
+		<p class="text-lg font-semibold text-gray-700 dark:text-gray-200">376</p>
+	  </div>
+	</div>
+  </div>
+
+  <!-- New Form -->
+  <form method="post">
+	{% csrf_token %}
+  <div class="px-4 py-3 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+	<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+	  {{ form.non_field_errors }}
+	  {{ form.errors }}
+	  {{ form.as_p }}
+	</div>
+	<!-- <label class="block text-sm">
+	  <span class="text-gray-700 dark:text-gray-400">Nome</span>
+	  <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		placeholder="Nome aparecerá aqui..." disabled />
+	</label>
+	<div class="grid gap-6 mt-4 md:grid-cols-2 xl:grid-cols-2">
+	  <label class="block text-sm">
+		<span class="text-gray-700 dark:text-gray-400">Email</span>
+		<input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		  placeholder="Email" />
+	  </label>
+	  <label class="block text-sm">
+		<span class="text-gray-700 dark:text-gray-400">Salario</span>
+		<input type="number" min="10000" max="99999999" step="1000" style="appearance: none;" id="price"
+		  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		  placeholder="Kz 80.000" />
+	  </label>
+	  <label class="block mt-4 text-sm">
+		<span class="text-gray-700 dark:text-gray-400">
+		  Cargo
+		</span>
+		<select
+		  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+		  <option>Opção 1</option>
+		  <option>Opção 2</option>
+		  <option>Opção 3</option>
+		  <option>Opção 4</option>
+		  <option>Opção 5</option>
+		  <option>Opção 6</option>
+		  <option>Opção 7</option>
+		</select>
+	  </label>
+	  <label class="block mt-4 text-sm">
+		<span class="text-gray-700 dark:text-gray-400">Nota</span>
+		<textarea style="resize: none;"
+		  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-blue dark:focus:shadow-outline-gray"
+		  rows="1" placeholder="Descreve o seu Produto..."></textarea>
+	  </label>
+	</div> -->
+
+   
+
+
+	<div class="flex justify-end mb-6 mt-6 text-sm gap-6">
+	  <button
+		class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:shadow-outline-blue">
+		Limpar
+	  </button>
+	  <button
+		class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+		Enviar
+	  </button>
+	</div>
+  </div>
+  </form>
+{% endblock content %}
+<script src="{% static 'assets/javascripts/jss/file-upload.js'%}"></script>
+
+{% block extra_scripts %}{% endblock extra_scripts %}

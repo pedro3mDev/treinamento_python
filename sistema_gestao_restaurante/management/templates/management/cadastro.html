@@ -1,0 +1,84 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Cadastro</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/animated-headline.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/stylesheets/style.css' %}">
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'assets/images/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start-->
+
+
+<!-- Register -->
+
+<main class="login-body" data-vide-bg="{% static 'assets/images/cadastroBg.mp4' %}">
+    <!-- Login Admin -->
+    <form class="form-default" method="POST">
+        
+        <div class="login-form">
+            <!-- logo-login -->
+            <div class="logo-login">
+                <a href="login.html"><img src="{% static 'assets/images/logo/loder.png' %}" alt=""></a>
+            </div>
+            <h2>Cadastro</h2>
+
+            <div class="form-input">
+                <label for="name">Nome Completo</label>
+                <input  type="text" id="name" name="name" placeholder="Nome">
+            </div>
+            <div class="form-input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-input">
+                <label for="email">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-input">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-input">
+                <label for="password1">Confirm Password</label>
+                <input type="password" id="password1" name="password" placeholder="Confirm Password">
+            </div>
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="Registration">
+            </div>
+            <!-- Forget Password -->
+            <a href="login.html" class="registration">Login</a>
+        </div>
+    </form>
+    <!-- /end login form -->
+</main>
+
+
+   <!-- Jquery -->
+   <script src="{% static '/assets/javascripts/js/vendor/jquery-1.12.4.min.js' %}"></script>
+   <!-- Video bg -->
+   <script src="{% static '/assets/javascripts/js/jquery.vide.js' %}"></script>
+   <!--  main Jquery -->
+   <script src="{% static '/assets/javascripts/js/main.js' %}"></script>
+    
+    </body>
+</html>

@@ -1,0 +1,472 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Bootstrap-ecommerce by Vosidiy">
+	<title>TRAPEZARIA POS</title>
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logos/squanchy.jpg' %}" > -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/logos/squanchy.jpg' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/images/logos/squanchy.jpg' %}">
+	<!-- jQuery -->
+	<!-- Bootstrap4 files-->
+	<link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'assets/css/ui.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'assets/fonts/fontawesome/css/fontawesome-all.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'assets/css/OverlayScrollbars.css' %}" type="text/css" rel="stylesheet" />
+	<!-- Font awesome 5 -->
+	<style>
+		.avatar {
+			vertical-align: middle;
+			width: 35px;
+			height: 35px;
+			border-radius: 50%;
+		}
+
+		.bg-default,
+		.btn-default {
+			background-color: #f2f3f8;
+		}
+
+		.btn-error {
+			color: #ef5f5f;
+		}
+	</style>
+	<!-- custom style -->
+</head>
+
+<body>
+	<section class="header-main">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3">
+					<div class="brand-wrap">
+						<img class="logo" src="{% static 'assets/images/favicon.ico' %}">
+						<h2 class="logo-text">TRAPEZARIA POS</h2>
+					</div> <!-- brand-wrap.// -->
+				</div>
+				<div class="col-lg-6 col-sm-6">
+					<form action="#" class="search-wrap">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</form> <!-- search-wrap .end// -->
+				</div> <!-- col.// -->
+				<div class="col-lg-3 col-sm-6">
+					<div class="widgets-wrap d-flex justify-content-end">
+						<div class="widget-header">
+							<a href="#" class="icontext">
+								<a href="{% url 'management:index' %}"
+									class="btn btn-primary m-btn m-btn--icon m-btn--icon-only">
+									<i class="fa fa-home"></i>
+								</a>
+							</a>
+						</div> <!-- widget .// -->
+						<div class="widget-header dropdown">
+							<a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
+								<img src="{% static 'assets/images/avatars/bshbsh.png' %}" class="avatar" alt="">
+							</a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<a class="dropdown-item" href="{% url 'management:logout_user' %}"><i
+										class="fa fa-sign-out-alt"></i> Logout</a>
+							</div> <!--  dropdown-menu .// -->
+						</div> <!-- widget  dropdown.// -->
+					</div> <!-- widgets-wrap.// -->
+				</div> <!-- col.// -->
+			</div> <!-- row.// -->
+		</div> <!-- container.// -->
+	</section>
+	<!-- ========================= SECTION CONTENT ========================= -->
+	<section class="section-content padding-y-sm bg-default ">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8 card padding-y-sm card ">
+					<ul class="nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active show" data-toggle="pill" href="#nav-tab-card">
+								<i class="fa fa-tags"></i> All</a>
+						</li>
+						{% for category in categories %}
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+								<i class="fa fa-tags "></i> {{category}}</a>
+						</li>
+						<li class="nav-item">
+							{% endfor %}
+					</ul>
+					<span id="items">
+						<div class="row">
+							{% for product in products %}
+							<div class="col-md-3">
+								<figure class="card card-product">
+									<span class="badge-new"> NEW </span>
+									<div class="img-wrap">
+										<img src="{% static product.arquivo.url %}">
+										<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+									</div>
+									<figcaption class="info-wrap">
+										<a href="#" class="title">{{product}}</a>
+										<div class="action-wrap">
+											<button onclick="addProductToCart(
+												{
+													'id': '{{product.pk}}',
+													'name': '{{product}}',
+													'url': '{% static product.arquivo.url %}',
+													'price': {{product.price}},
+													'price_format': '{{product.price | intcomma}}',
+													'tax': '{{product.tax_id.percentage}}',
+												})" class="btn btn-primary btn-sm float-right">
+												<i class="fa fa-cart-plus"></i> Add
+											</button>
+											<div class="price-wrap h5">
+												<span class="price-new">{{product.price | intcomma}} Akz</span>
+											</div> <!-- price-wrap.// -->
+										</div> <!-- action-wrap -->
+									</figcaption>
+								</figure> <!-- card // -->
+							</div> <!-- col // -->
+							{% endfor %}
+						</div> <!-- row.// -->
+					</span>
+				</div>
+				<div class="col-md-4">
+					<form method="post" action="{% url 'point_of_sale:create_invoice' %}" target="_blank">
+					{% csrf_token %}
+					<div class="card">
+						<span id="cart">
+							<table class="table table-hover shopping-cart-wrap">
+								<thead class="text-muted">
+									<tr>
+										<th scope="col">Item</th>
+										<th scope="col" width="120">Qtd</th>
+										<th scope="col" width="120">Preço</th>
+										<th scope="col" width="120">Taxa%</th>
+										<th scope="col" class="text-right" width="200">Excluir</th>
+									</tr>
+								</thead>
+								<tbody id="cartTableBody">
+
+								</tbody>
+							</table>
+						</span>
+					</div> <!-- card.// -->
+					<div class="box">
+						<dl class="dlist-align">
+							<dt>Tax: </dt>
+							<dd class="text-right" id="totalTax">12%</dd>
+						</dl>
+						<dl class="dlist-align">
+							<dt>Discount:</dt>
+							<dd class="text-right"><a href="#" id="totalDiscounts">0%</a></dd>
+						</dl>
+						<dl class="dlist-align">
+							<dt>Sub Total:</dt>
+							<dd class="text-right" id="totalPrices">$215</dd>
+						</dl>
+						<dl class="dlist-align">
+							<dt>Total: </dt>
+							<dd class="text-right h4 b" id="totalTotals"> $215 </dd>
+						</dl>
+						<div class="row">
+							<div class="col-md-6">
+								<a href="javascript:void" onclick="removeAllRow()" class="btn  btn-default btn-error btn-lg btn-block"><i
+										class="fa fa-times-circle "></i> Cancel </a>
+							</div>
+							<div class="col-md-6">
+								<button type="submit" href="#" class="btn  btn-primary btn-lg btn-block"><i class="fa fa-shopping-bag"></i>
+									Facturar </button>
+							</div>
+						</div>
+					</div> <!-- box.// -->
+					</form>
+				</div>
+			</div>
+		</div><!-- container //  -->
+	</section>
+	<!-- ========================= SECTION CONTENT END// ========================= -->
+	<script src="{% static 'assets/js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/OverlayScrollbars.js' %}" type="text/javascript"></script>
+	<script>
+		let productsId = []
+		removeAllRow();
+		$(function () {
+			//The passed argument has to be at least a empty object or a object with your desired options
+			//$("body").overlayScrollbars({ });
+			$("#items").height(552);
+			$("#items").overlayScrollbars({
+				overflowBehavior: {
+					x: "hidden",
+					y: "scroll"
+				}
+			});
+			$("#cart").height(445);
+			$("#cart").overlayScrollbars({});
+
+			// --------------------------------------
+
+			let addButtonProduct = $('<button type="button" class="btn btn-primary" >Cadastrar Producto</button>');
+		});
+		function addProductToCart(params) {
+			const {id} = params;
+			if (!productsId.includes(id)) {
+				addlineToCart(params);
+				productsId.push(id);
+				calculateSum();
+			}
+			else {
+				let temp = $('#row-' + id).children()[1]
+				temp = $(temp).children()[0]
+				temp = $(temp).children()[1]
+				
+				let currentValue = parseInt($(temp).text());
+				$(temp).text(currentValue + 1);
+				let inputField = $(temp).siblings('input[name="quantity"]');
+				inputField.val(currentValue + 1);
+				calculateSum();
+			}
+		}
+		function addlineToCart(params) {
+			const {
+				id,
+				url,
+				name,
+				price,
+				price_format,
+				tax
+			} = params;
+			
+			const tableBody = $('#cartTableBody');
+			// Create a new table row
+			const row = $('<tr>')
+				.attr('id', 'row-'+id)
+				.attr('name', 'lines');
+
+			// Create table cells and populate them with data
+			const cell1 = $('<td>');
+			const media = $('<figure>')
+				.addClass('media');
+
+			const img_wrap = $('<div>')
+				.addClass('img-wrap');
+			const img_thumbnail = $('<img>')
+				.attr('src', url)
+				.addClass('img-thumbnail')
+				.addClass('img-xs');
+			img_wrap.append(img_thumbnail);
+
+			const media_body = $('<figcaption>')
+				.addClass('media-body');
+			const title = $('<h6>')
+				.text(name)
+				.addClass('title')
+				.addClass('text-truncate');
+			media_body.append(title);
+
+			media.append(img_wrap, media_body);
+
+			cell1.append(media)
+
+			const cell2 = $('<td>')
+				.addClass('text-center');
+			const quantityInput = $('<input>')
+				.attr('type', 'number')
+				.attr('name', 'quantity')
+				.attr('min', '1')
+				.css('display', 'none')
+				.val(1); 
+			const priceInput = $('<input>')
+				.attr('type', 'number')
+				.attr('name', 'price')
+				.attr('min', '1')
+				.val(`${price}`)
+				.css('display', 'none'); 
+			const taxInput = $('<input>')
+				.attr('type', 'number')
+				.attr('name', 'tax')
+				.attr('min', '0')
+				.val(`${tax}`)
+				.css('display', 'none'); 
+			const productInput = $('<input>')
+				.attr('type', 'number')
+				.attr('name', 'product')
+				.val(`${id}`)
+				.css('display', 'none'); 
+			const qty = $('<div>')
+				.attr('role', 'group')
+				.attr('aria-label', '...')
+				.addClass('m-btn-group')
+				.addClass('m-btn-group--pill')
+				.addClass('btn-group')
+				.addClass('mr-2');
+			const btn_minus = $('<button>')
+				.addClass('m-btn')
+				.addClass('btn')
+				.addClass('btn-default')
+				.on('click', function (event) {
+					console.log(event);
+					event.preventDefault(); // Prevent the default behavior (page refresh)
+
+					// Increment the quantity input value
+					let currentValue = parseInt(btn_qty.text());
+					if (currentValue > 1) {
+						btn_qty.text(currentValue - 1);
+						quantityInput.val(currentValue - 1);
+						let inputField = $(this).siblings('input[name="quantity"]');
+						let currentValue = parseInt(inputField.val());
+						if (currentValue > 1) {
+							inputField.val(currentValue - 1);
+						}
+						calculateSum();
+					}
+					// updateTotalPrice(quantityInput);
+					// increaseQuantity(this); // Call the increaseQuantity function passing the button element
+				});
+			const minus = $('<i>')
+				.addClass('fa')
+				.addClass('fa-minus');
+			btn_minus.append(minus);
+			const btn_qty = $('<button>')
+				.text(1)
+				.attr('disabled', 'disabled')
+				.attr('name', 'qty')
+				.addClass('m-btn')
+				.addClass('btn')
+				.addClass('btn-default');
+			const btn_plus = $('<button>')
+				.addClass('m-btn')
+				.addClass('btn')
+				.addClass('btn-default')
+				.on('click', function (event) {
+					console.log(event);
+					event.preventDefault(); // Prevent the default behavior (page refresh)
+
+					// Increment the quantity input value
+					let currentValue = parseInt(btn_qty.text());
+					btn_qty.text(currentValue + 1);
+					quantityInput.val(currentValue + 1);
+					calculateSum();
+					// updateTotalPrice(quantityInput);
+					// increaseQuantity(this); // Call the increaseQuantity function passing the button element
+				});
+			const plus = $('<i>')
+				.addClass('fa')
+				.addClass('fa-plus');
+			btn_plus.append(plus);
+			qty.append(btn_minus, btn_qty, btn_plus, quantityInput, priceInput, productInput, taxInput);
+			cell2.append(qty);
+
+			const cell3 = $('<td>');
+			cell3.append($('<div>')
+				.addClass('price-wrap')
+				.append(
+					$('<var>')
+						.addClass('price')
+						// .attr('name', 'price')
+						.text(price_format + 'kz')
+				)
+			);
+
+			const cell4 = $('<td>');
+			cell4.append($('<div>')
+				.addClass('price-wrap')
+				.append(
+					$('<var>')
+						.addClass('price')
+						.text(tax + '%')
+				)
+			);
+
+			const cell5 = $('<td>')
+				.addClass('text-right')
+				.append(
+					$('<button>')
+						.addClass('btn')
+						.addClass('btn-outline-danger')
+						.append(
+							$('<i>')
+								.addClass('fa')
+								.addClass('fa-trash')
+						)
+						.on('click', function (event) {
+							productsId = productsId.filter(element => element != id)
+							removeRow(this); // Call the removeRow function passing the anchor element
+							// updateTotalPrice(quantityInput);
+							calculateSum();
+						})
+				);
+
+
+			row.append(cell1, cell2, cell3, cell4, cell5);
+
+			// Append the row to the table body
+			tableBody.append(row);
+		}
+		function removeRow(link) {
+			var row = link.parentNode.parentNode; // Get the parent <tr> element
+			row.remove(); // Remove the row
+		}
+		function removeAllRow() {
+			productsId = []
+			$('#cartTableBody').children().remove();
+
+			let totalPrices = 0;
+			let totalTaxs = 0;
+			let totalTotals = 0;
+			let totalDiscounts = 0;
+			let totalExemption = 0;
+
+			var options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+			$('#totalPrices').text(totalPrices.toLocaleString('da-DK', options));
+			$('#totalTax').text(totalTaxs.toLocaleString('da-DK', options));
+			$('#totalTotals').text(totalTotals.toLocaleString('da-DK', options));
+			$('#totalDiscounts').text(totalDiscounts.toLocaleString('da-DK', options));
+			// $('#totalExemption').text(totalExemption.toLocaleString('da-DK', options));
+		}
+		function calculateSum() {
+			let totalPrices = 0;
+			let totalTaxs = 0;
+			let totalTotals = 0;
+			let totalDiscounts = 0;
+			let totalExemption = 0;
+
+			var options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+			$('#cartTableBody tr').each(function () {
+				// console.log(parseFloat($($(this).find('td:eq(2) div').children()[0]).text().replace('kz','').replace(',','')));
+				let quantity = parseFloat($($(this).find('td:eq(1) div').children()[1]).text());
+				let price = parseFloat($($(this).find('td:eq(2) div').children()[0]).text().replace('kz', '').replace(',', ''));
+				let tax = parseFloat($($(this).find('td:eq(3) div').children()[0]).text().replace('%', ''))/100;
+				// let tax = (parseFloat($(this).find('td:eq(2) select').val()) / 100);
+				// let discount = (parseFloat($(this).find('td:eq(4) input').val()) / 100);
+				// let total = parseFloat($(this).find('td:eq(5)').text().substring(1));
+
+				totalPrices += price;
+				totalTaxs += price * quantity * tax;
+				// let total = price * quantity;
+				let total = price * quantity * (1 + tax);
+				// totalExemption += (1 + tax) == 1 ? total : 0;
+				// totalDiscounts += total * discount;
+				// total -= total * discount;
+				totalTotals += total;
+			});
+			$('#totalPrices').text(totalPrices.toLocaleString('da-DK', options));
+			$('#totalTax').text(totalTaxs.toLocaleString('da-DK', options));
+			$('#totalTotals').text(totalTotals.toLocaleString('da-DK', options));
+			$('#totalDiscounts').text(totalDiscounts.toLocaleString('da-DK', options));
+			$('#totalExemption').text(totalExemption.toLocaleString('da-DK', options));
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Lista Funcionário{% endblock title %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'assets/vendors/sweetalert/sweetalert.css'%}" />
+<script src="https://unpkg.com/tippy.js@6.3.3/dist/tippy-bundle.umd.js"></script>
+{% endblock extra_head %}
+
+{% block content_title %}Lista Funcionário{% endblock content_title %}
+
+{% block content %}<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+    <!-- Card -->
+    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+        <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total de funcionários</p>
+            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{total_employeers}}</p>
+        </div>
+    </div>
+    <!-- Card -->
+
+</div>
+<div class="flex justify-end mb-6 text-lg gap-6">
+    <a href="{% url 'rh:create_employee' %}">
+        <button
+            class="flex items-center justify-between px-4 py-2 text-sm font-bold leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            <svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+            </svg>
+            <span>Novo Funcionário</span>
+        </button>
+    </a>
+</div>
+<!-- New Table -->
+<div class="w-full overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+        <table class="w-full whitespace-no-wrap">
+            <thead>
+                <tr
+                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3">Nome</th>
+                    <th class="px-4 py-3">Salário</th>
+                    <th class="px-4 py-3">E-mail</th>
+                    <th class="px-4 py-3">Estado</th>
+                    <th class="px-4 py-3">Opções</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                {% for employee in employeers %}
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                            <!-- Avatar with inset shadow -->
+                            <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                <img class="object-cover w-full h-full rounded-full"
+                                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                    alt="" loading="lazy" />
+                                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                            </div>
+                            <div>
+                                <p class="font-semibold">{{employee.name}}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">
+                                    {{employee.position}}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                        {{employee.salary | intcomma}} Akz
+                    </td>
+                    <td class="px-4 py-3 text-xs">
+                        <span class="px-4 py-1 font-semibold bg-blue-100 text-gray-700 rounded-full dark:text-gray-700">
+                            {{employee.email}}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                        <span
+                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            {{employee.status}}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">
+                            <a
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray tooltip"
+                                aria-label="Edit" href="{% url 'rh:employee_edit' pk=employee.pk %}"  data-tooltip="Editar">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray tooltip"
+                                aria-label="Delete" onclick="excluir({{employee.pk}})"  data-tooltip="Excluir funcionário">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            {% if employee.user %}
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray tooltip"
+                                aria-label="Atribuir Permissões" onclick="removeAccess({{ employee.pk }})" data-tooltip="Remover acesso">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path
+                                    d="M10.375 2.25a4.125 4.125 0 1 0 0 8.25 4.125 4.125 0 0 0 0-8.25ZM10.375 12a7.125 7.125 0 0 0-7.124 7.247.75.75 0 0 0 .363.63 13.067 13.067 0 0 0 6.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 0 0 .364-.63l.001-.12v-.002A7.125 7.125 0 0 0 10.375 12ZM16 9.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5h-6Z" />
+                                </svg>
+                            </button>
+                            {% else %}
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray tooltip"
+                                aria-label="Dar Acesso a Funcionário" onclick="giveAccess({{ employee.pk }})"  data-tooltip="Dar acesso">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path
+                                    d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                                </svg>
+                            </button>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3 text-center" colspan="5">
+                        Nenhum Funcionário Registado!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">
+            Mostrando {{ employeers.start_index }}-{{ employeers.end_index }} de {{ employeers.paginator.count }}
+        </span>
+        <span class="col-span-2"></span>
+        <!-- Pagination -->
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+                <ul class="inline-flex items-center">
+                    {% if employeers.has_previous %}
+                    <li>
+                        <a href="?page=1"
+                            class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Primeira Página">
+                            &laquo; Primeira
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page={{ employeers.previous_page_number }}"
+                            class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Página Anterior">
+                            Anterior
+                        </a>
+                    </li>
+                    {% endif %}
+    
+                    {% for num in employeers.paginator.page_range %}
+                    <li>
+                        <a href="?page={{ num }}"
+                            class="px-3 py-1 {% if employeers.number == num %}text-white bg-blue-600{% else %}rounded-md focus:outline-none focus:shadow-outline-purple{% endif %}">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endfor %}
+    
+                    {% if employeers.has_next %}
+                    <li>
+                        <a href="?page={{ employeers.next_page_number }}"
+                            class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Próxima Página">
+                            Próxima
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page={{ employeers.paginator.num_pages }}"
+                            class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Última Página">
+                            &raquo; Última
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </span>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function excluir(pk) {
+        swal({
+            title: "Tem certeza?",
+            text: "Esse Funcionário não poderá ser recuperado após a exclusão.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e02424",
+            confirmButtonText: "Sim, exclua agora!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            // Chamada AJAX para excluir o livro
+            $.ajax({
+                type: "POST",
+                url: `/rh/${pk}/delete/`,  // Ajuste conforme a estrutura do seu projeto
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // Exibindo mensagem de sucesso após a exclusão
+                    swal("Excluído!", "O funcionário foi excluído com sucesso.", "success");
+                    // Redirecionando para a lista de livros após a exclusão
+                    setTimeout(() => {
+                        window.location.href = "{% url 'rh:index' %}";
+                    }, 1000);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // Exibindo mensagem de erro em caso de falha
+                    swal("Erro", "Erro ao excluir o funcionário.", "error");
+                }
+            });
+        });
+    }
+    function giveAccess(pk) {
+        swal({
+            title: "Tem certeza?",
+            text: "Esse funcionario lhe será dado acesso de user.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#00CC00",
+            confirmButtonText: "Sim, dar acesso agora!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            // Chamada AJAX para excluir o livro
+            $.ajax({
+                type: "POST",
+                url: `/rh/give_access/${pk}/`,  // Ajuste conforme a estrutura do seu projeto
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // Exibindo mensagem de sucesso após a exclusão
+                    swal("Concedido!", "O usuário do funcionário foi criado com sucesso.", "success");
+                    // Redirecionando para a lista de livros após a exclusão
+                    setTimeout(() => {
+                        window.location.href = "{% url 'rh:index' %}";
+                    }, 1000);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // Exibindo mensagem de erro em caso de falha
+                    swal("Erro", "Erro ao dar acesso o funcionário.", "error");
+                }
+            });
+        });
+    }
+    function removeAccess(pk) {
+        swal({
+            title: "Tem certeza?",
+            text: "Esse funcionario lhe será removido acesso de user.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#00CC00",
+            confirmButtonText: "Sim, remover acesso agora!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            // Chamada AJAX para excluir o livro
+            $.ajax({
+                type: "POST",
+                url: `/rh/remove_user/${pk}/`,  // Ajuste conforme a estrutura do seu projeto
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // Exibindo mensagem de sucesso após a exclusão
+                    swal("Concedido!", "O usuário do funcionário foi removido com sucesso.", "success");
+                    // Redirecionando para a lista de livros após a exclusão
+                    setTimeout(() => {
+                        window.location.href = "{% url 'rh:index' %}";
+                    }, 1000);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // Exibindo mensagem de erro em caso de falha
+                    swal("Erro", "Erro ao remover acesso o funcionário.", "error");
+                }
+            });
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        tippy('.tooltip', {
+            placement: 'bottom',
+            arrow: true,
+        });
+    });
+</script>
+<script src="{% static 'assets/javascripts/jss/alpine.min.js'%}"></script>
+<script src="{% static 'assets/javascripts/jss/init-alpine.js'%}"></script>
+<script src="{% static 'assets/vendors/sweetalert/sweetalert-dev.js'%}"></script>
+{% endblock extra_scripts %}

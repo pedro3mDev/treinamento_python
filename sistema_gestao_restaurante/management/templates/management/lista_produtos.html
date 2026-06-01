@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Lista Produtos{% endblock title %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'assets/vendors/sweetalert/sweetalert.css'%}"/>
+{% endblock extra_head %}
+
+{% block content_title %}Lista Produtos{% endblock content_title %}
+
+{% block content %}
+<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+  <!-- Card -->
+  <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path
+          d="M12.75 10.6C12.75 10.1858 12.4142 9.85 12 9.85C11.5858 9.85 11.25 10.1858 11.25 10.6H12.75ZM12 19H11.25C11.25 19.2489 11.3734 19.4815 11.5795 19.6211C11.7856 19.7606 12.0475 19.7888 12.2785 19.6964L12 19ZM19 16.2L19.2785 16.8964C19.5633 16.7825 19.75 16.5067 19.75 16.2H19ZM19.75 10.379C19.75 9.96479 19.4142 9.629 19 9.629C18.5858 9.629 18.25 9.96479 18.25 10.379H19.75ZM12.4538 10.0029C12.124 9.75224 11.6535 9.81641 11.4029 10.1462C11.1522 10.476 11.2164 10.9465 11.5462 11.1971L12.4538 10.0029ZM14.5 12.5L14.0462 13.0971C14.2687 13.2663 14.5669 13.2976 14.8198 13.1784L14.5 12.5ZM19.3198 11.0574C19.6944 10.8808 19.855 10.4339 19.6784 10.0592C19.5018 9.68456 19.0549 9.52398 18.6802 9.70058L19.3198 11.0574ZM11.7215 9.90364C11.3369 10.0575 11.1498 10.494 11.3036 10.8785C11.4575 11.2631 11.894 11.4502 12.2785 11.2964L11.7215 9.90364ZM19.2785 8.49636C19.6631 8.34252 19.8502 7.90604 19.6964 7.52146C19.5425 7.13687 19.106 6.94981 18.7215 7.10364L19.2785 8.49636ZM18.7215 8.49636C19.106 8.65019 19.5425 8.46313 19.6964 8.07854C19.8502 7.69396 19.6631 7.25748 19.2785 7.10364L18.7215 8.49636ZM12.2785 4.30364C11.894 4.14981 11.4575 4.33687 11.3036 4.72146C11.1498 5.10604 11.3369 5.54252 11.7215 5.69636L12.2785 4.30364ZM19.3665 7.14562C19.005 6.94323 18.548 7.07214 18.3456 7.43355C18.1432 7.79495 18.2721 8.25199 18.6335 8.45438L19.3665 7.14562ZM21.5 9.2L21.8199 9.87835C22.0739 9.75855 22.2397 9.50686 22.2495 9.22618C22.2593 8.94549 22.1115 8.68285 21.8665 8.54562L21.5 9.2ZM18.6801 9.70065C18.3054 9.87733 18.145 10.3243 18.3217 10.6989C18.4983 11.0736 18.9453 11.234 19.3199 11.0573L18.6801 9.70065ZM4.72146 7.10364C4.33687 7.25748 4.14981 7.69396 4.30364 8.07854C4.45748 8.46313 4.89396 8.65019 5.27854 8.49636L4.72146 7.10364ZM12.2785 5.69636C12.6631 5.54252 12.8502 5.10604 12.6964 4.72146C12.5425 4.33687 12.106 4.14981 11.7215 4.30364L12.2785 5.69636ZM5.36645 8.45438C5.72786 8.25199 5.85677 7.79495 5.65438 7.43355C5.45199 7.07214 4.99495 6.94323 4.63355 7.14562L5.36645 8.45438ZM2.5 9.2L2.13355 8.54562C1.8885 8.68285 1.74065 8.94549 1.75046 9.22618C1.76026 9.50686 1.92606 9.75855 2.18009 9.87835L2.5 9.2ZM4.68009 11.0573C5.05473 11.234 5.50167 11.0736 5.67835 10.6989C5.85503 10.3243 5.69455 9.87733 5.31991 9.70065L4.68009 11.0573ZM5.27854 7.10364C4.89396 6.94981 4.45748 7.13687 4.30364 7.52146C4.14981 7.90604 4.33687 8.34252 4.72146 8.49636L5.27854 7.10364ZM11.7215 11.2964C12.106 11.4502 12.5425 11.2631 12.6964 10.8785C12.8502 10.494 12.6631 10.0575 12.2785 9.90364L11.7215 11.2964ZM12.75 10.6C12.75 10.1858 12.4142 9.85 12 9.85C11.5858 9.85 11.25 10.1858 11.25 10.6H12.75ZM12 19L11.7215 19.6964C11.9525 19.7888 12.2144 19.7606 12.4205 19.6211C12.6266 19.4815 12.75 19.2489 12.75 19H12ZM5 16.2H4.25C4.25 16.5067 4.43671 16.7825 4.72146 16.8964L5 16.2ZM5.75 10.379C5.75 9.96479 5.41421 9.629 5 9.629C4.58579 9.629 4.25 9.96479 4.25 10.379H5.75ZM12.4538 11.1971C12.7836 10.9465 12.8478 10.476 12.5971 10.1462C12.3465 9.81641 11.876 9.75224 11.5462 10.0029L12.4538 11.1971ZM9.5 12.5L9.18024 13.1784C9.4331 13.2976 9.73125 13.2663 9.95381 13.0971L9.5 12.5ZM5.31976 9.70058C4.94508 9.52398 4.49818 9.68456 4.32158 10.0592C4.14498 10.4339 4.30556 10.8808 4.68024 11.0574L5.31976 9.70058ZM11.25 10.6V19H12.75V10.6H11.25ZM12.2785 19.6964L19.2785 16.8964L18.7215 15.5036L11.7215 18.3036L12.2785 19.6964ZM19.75 16.2V10.379H18.25V16.2H19.75ZM11.5462 11.1971L14.0462 13.0971L14.9538 11.9029L12.4538 10.0029L11.5462 11.1971ZM14.8198 13.1784L19.3198 11.0574L18.6802 9.70058L14.1802 11.8216L14.8198 13.1784ZM12.2785 11.2964L19.2785 8.49636L18.7215 7.10364L11.7215 9.90364L12.2785 11.2964ZM19.2785 7.10364L12.2785 4.30364L11.7215 5.69636L18.7215 8.49636L19.2785 7.10364ZM18.6335 8.45438L21.1335 9.85438L21.8665 8.54562L19.3665 7.14562L18.6335 8.45438ZM21.1801 8.52165L18.6801 9.70065L19.3199 11.0573L21.8199 9.87835L21.1801 8.52165ZM5.27854 8.49636L12.2785 5.69636L11.7215 4.30364L4.72146 7.10364L5.27854 8.49636ZM4.63355 7.14562L2.13355 8.54562L2.86645 9.85438L5.36645 8.45438L4.63355 7.14562ZM2.18009 9.87835L4.68009 11.0573L5.31991 9.70065L2.81991 8.52165L2.18009 9.87835ZM4.72146 8.49636L11.7215 11.2964L12.2785 9.90364L5.27854 7.10364L4.72146 8.49636ZM11.25 10.6V19H12.75V10.6H11.25ZM12.2785 18.3036L5.27854 15.5036L4.72146 16.8964L11.7215 19.6964L12.2785 18.3036ZM5.75 16.2V10.379H4.25V16.2H5.75ZM11.5462 10.0029L9.04619 11.9029L9.95381 13.0971L12.4538 11.1971L11.5462 10.0029ZM9.81976 11.8216L5.31976 9.70058L4.68024 11.0574L9.18024 13.1784L9.81976 11.8216Z"
+          fill="#000000" />
+      </svg>
+    </div>
+    <div>
+      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Produtos sem Estoque</p>
+      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">376</p>
+    </div>
+  </div>
+  <!-- Card -->
+  <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path
+          d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+        </path>
+      </svg>
+    </div>
+    <div>
+      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Estoque Total</p>
+      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">3.344</p>
+    </div>
+  </div>
+</div>
+<div class="flex justify-end mb-6 text-lg gap-6">
+  <a href="{% url 'management:cadastro_produto' %}">
+    <button
+      class="flex items-center justify-between px-4 py-2 text-sm font-bold leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+      <svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+      </svg>
+      <span>Novo Produto</span>
+    </button>
+  </a>
+</div>
+
+<!-- New Table -->
+<div class="w-full overflow-hidden rounded-lg shadow-xs">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full whitespace-no-wrap">
+      <thead>
+        <tr
+          class="text-xs text-center font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <th class="px-4 py-3">Nome</th>
+          <th class="px-4 py-3">Preço</th>
+          <th class="px-4 py-3">Categoria</th>
+          <th class="px-4 py-3">Taxa</th>
+          <th class="px-4 py-3">Codigo</th>
+          <th class="px-4 py-3">Opções</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+        {% for product in products %}
+        <tr class="text-center text-gray-700 dark:text-gray-400">
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <!-- Avatar with inset shadow -->
+              <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block ">
+                {% if not product.arquivo %}
+                <img class="object-cover w-full h-full rounded-md"
+                  src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="" loading="lazy" />
+                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                {% else %}
+                <img class="object-cover w-full h-full rounded-md" src="{% static product.arquivo.url %}" alt=""
+                  loading="lazy" />
+                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                {% endif %}
+              </div>
+              <div>
+                <p class="font-semibold">{{product.name}}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3  font-semibold">
+            Kz {{product.price}}
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <span class="px-4 py-1 bg-blue-100 text-gray-700 rounded-full dark:text-gray-700">
+              {{product.category_id}}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <span class="px-4 py-3  font-semibold leading-tight">{{product.tax_id}}</span>
+          </td>
+          <td class="px-4 py-3 text-sm font-semibold">
+            {{product.code}}
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center space-x-4 text-sm">
+              <button
+                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                aria-label="Edit">
+                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                  </path>
+                </svg>
+              </button>
+              <button onclick="excluir()"
+                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                aria-label="Delete">
+                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+    <span class="flex items-center col-span-3">
+      Mostrando 1-10 de 100
+    </span>
+    <span class="col-span-2"></span>
+    <!-- Pagination -->
+    <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+      <nav aria-label="Table navigation">
+        <ul class="inline-flex items-center">
+          <li>
+            <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+              aria-label="Previous">
+              <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd" fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </li>
+          <li>
+            <button
+              class="px-3 py-1 text-white transition-colors duration-150 bg-blue-600 border border-r-0 border-blue-600 rounded-md focus:outline-none focus:shadow-outline-purple">
+              1
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+              2
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+              3
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+              4
+            </button>
+          </li>
+          <li>
+            <span class="px-3 py-1">...</span>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+              8
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+              9
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+              aria-label="Next">
+              <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                <path
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd" fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </span>
+  </div>
+  <script>
+    function excluir() {
+      swal({
+        title: "Tem certeza?",
+        text: "Você não poderá recuperar o produto após a exclusão.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e02424",
+        hoverColor: "#000000",
+        confirmButtonText: "Sim, exclua agora!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        setTimeout(function () {
+          swal("Excluído!", "O produto foi excluído com sucesso.", "success");
+        }, 2000);
+      });
+    }
+  </script>
+</div>
+{% endblock content %}
+{% block extra_scripts %}
+<script src="{% static 'assets/vendors/sweetalert/sweetalert-dev.js'%}">
+  
+</script><script src="{% static 'assets/vendors/jquery/jquery.js'%}"></script>
+<script src="{% static 'assets/vendors/stickytableheaders/jquery.stickytableheaders.js'%}"></script>
+<script>
+	$('table').stickyTableHeaders();
+</script>
+
+{% endblock extra_scripts %}

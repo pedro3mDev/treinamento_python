@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Componentes{% endblock title %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'assets/vendors/sweetalert/sweetalert.css' %}" />
+{% endblock extra_head %}
+
+{% block content_title %}Modelos{% endblock content_title %}
+
+{% block content %}
+<div class="px-4 py-3 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+  <div class="grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-3">
+    <!--Principal-->
+    <div class="model">
+      <label class="block text-sm mb-2">
+        <span class="text-gray-700 font-bold dark:text-gray-400">Taxa</span>
+        <div class="relative text-gray-500 focus-within:text-blue-600">
+          <select onchange="selectModel(this)"
+            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-600 focus:outline-none focus:shadow-outline-blue dark:focus:shadow-outline-gray">
+            <option>-------</option>
+            <option>IVA 7%</option>
+            <option>IVA 14%</option>
+          </select>
+          <button onclick="newModel(this)"
+            class="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-r-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 22 22" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+            </svg></button>
+        </div>
+      </label>
+      <!--Alteracoes-->
+      <div class="hidden flex items-center gap-16 p-3 bg-gray-50 rounded-lg shadow-md dark:bg-gray-800">
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Nome</span>
+          <input type="text" disabled
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Taxa" name="name" />
+        </label>
+        <div class="flex justify-end  mt-6 text-sm">
+          <button onclick="editModel(this)"
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Editar</title>
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+              </path>
+            </svg>
+          </button>
+          <button
+            class="hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg  viewBox="0 0 20 20"class="w-5 h-5" aria-hidden="true" fill="currentColor">
+              <title>Confirmar</title>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 6.29289C20.0976 6.68342 20.0976 7.31658 19.7071 7.70711L10.4142 17C9.63316 17.7811 8.36683 17.781 7.58579 17L3.29289 12.7071C2.90237 12.3166 2.90237 11.6834 3.29289 11.2929C3.68342 10.9024 4.31658 10.9024 4.70711 11.2929L9 15.5858L18.2929 6.29289C18.6834 5.90237 19.3166 5.90237 19.7071 6.29289Z" fill="currentColor"/>
+              </svg>
+          </button>
+          <button
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="excluir(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Deletar</title>
+              <path fill-rule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+          <button
+            class=" hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="cancel(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 32 32">
+              <title>Cancelar</title>
+              <path d="M10.771 8.518c-1.144 0.215-2.83 2.171-2.086 2.915l4.573 4.571-4.573 4.571c-0.915 0.915 1.829 3.656 2.744 2.742l4.573-4.571 4.573 4.571c0.915 0.915 3.658-1.829 2.744-2.742l-4.573-4.571 4.573-4.571c0.915-0.915-1.829-3.656-2.744-2.742l-4.573 4.571-4.573-4.571c-0.173-0.171-0.394-0.223-0.657-0.173v0zM16 1c-8.285 0-15 6.716-15 15s6.715 15 15 15 15-6.716 15-15-6.715-15-15-15zM16 4.75c6.213 0 11.25 5.037 11.25 11.25s-5.037 11.25-11.25 11.25-11.25-5.037-11.25-11.25c0.001-6.213 5.037-11.25 11.25-11.25z"/>
+              </svg>
+          </button>
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="model">
+      <!--Principal-->
+      <label class="block text-sm mb-2">
+        <span class="text-gray-700 font-bold dark:text-gray-400">Categoria</span>
+        <div class="relative text-gray-500 focus-within:text-purple-600">
+          <select onchange="selectModel(this)"
+            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-600 focus:outline-none focus:shadow-outline-blue dark:focus:shadow-outline-gray">
+            <option>-------</option>
+            <option>Comidas</option>
+            <option>Bebidas</option>
+          </select>
+          <button onclick="newModel(this)"
+            class="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-r-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 22 22" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+            </svg></button>
+        </div>
+      </label>
+      <!--Alteracoes-->
+      <div class="hidden flex items-center gap-16 p-3 bg-gray-50 rounded-lg shadow-md dark:bg-gray-800">
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Nome</span>
+          <input disabled
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Categoria" name="name" />
+        </label>
+        <div class="flex justify-end  mt-6 text-sm">
+          <button onclick="editModel(this)"
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Editar</title>
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+              </path>
+            </svg>
+          </button>
+          <button
+            class="hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg  viewBox="0 0 20 20"class="w-5 h-5" aria-hidden="true" fill="currentColor">
+              <title>Confirmar</title>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 6.29289C20.0976 6.68342 20.0976 7.31658 19.7071 7.70711L10.4142 17C9.63316 17.7811 8.36683 17.781 7.58579 17L3.29289 12.7071C2.90237 12.3166 2.90237 11.6834 3.29289 11.2929C3.68342 10.9024 4.31658 10.9024 4.70711 11.2929L9 15.5858L18.2929 6.29289C18.6834 5.90237 19.3166 5.90237 19.7071 6.29289Z" fill="currentColor"/>
+              </svg>
+          </button>
+          <button
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="excluir(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Deletar</title>
+              <path fill-rule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+          <button
+            class=" hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="cancel(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 32 32">
+              <title>Cancelar</title>
+              <path d="M10.771 8.518c-1.144 0.215-2.83 2.171-2.086 2.915l4.573 4.571-4.573 4.571c-0.915 0.915 1.829 3.656 2.744 2.742l4.573-4.571 4.573 4.571c0.915 0.915 3.658-1.829 2.744-2.742l-4.573-4.571 4.573-4.571c0.915-0.915-1.829-3.656-2.744-2.742l-4.573 4.571-4.573-4.571c-0.173-0.171-0.394-0.223-0.657-0.173v0zM16 1c-8.285 0-15 6.716-15 15s6.715 15 15 15 15-6.716 15-15-6.715-15-15-15zM16 4.75c6.213 0 11.25 5.037 11.25 11.25s-5.037 11.25-11.25 11.25-11.25-5.037-11.25-11.25c0.001-6.213 5.037-11.25 11.25-11.25z"/>
+              </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="model">
+      <!--Principal-->
+      <label class="block text-sm mb-2">
+        <span class="text-gray-700 font-bold dark:text-gray-400">Produto</span>
+        <div class="relative text-gray-500 focus-within:text-purple-600">
+          <select onchange="selectModel(this)"
+            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-600 focus:outline-none focus:shadow-outline-blue dark:focus:shadow-outline-gray">
+            <option>-------</option>
+            <option>Comidas</option>
+            <option>Bebidas</option>
+          </select>
+          <button onclick="newModel(this)"
+            class="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-r-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 22 22" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" />
+            </svg></button>
+        </div>
+      </label>
+      <!--Alteracoes-->
+      <div class="hidden flex items-center gap-16 p-3 bg-gray-50 rounded-lg shadow-md dark:bg-gray-800">
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Nome</span>
+          <input disabled
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Produto" name="name" />
+        </label>
+        <div class="flex justify-end  mt-6 text-sm">
+          <button onclick="editModel(this)"
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Editar</title>
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+              </path>
+            </svg>
+          </button>
+          <button
+            class="hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit">
+            <svg  viewBox="0 0 20 20"class="w-5 h-5" aria-hidden="true" fill="currentColor">
+              <title>Confirmar</title>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 6.29289C20.0976 6.68342 20.0976 7.31658 19.7071 7.70711L10.4142 17C9.63316 17.7811 8.36683 17.781 7.58579 17L3.29289 12.7071C2.90237 12.3166 2.90237 11.6834 3.29289 11.2929C3.68342 10.9024 4.31658 10.9024 4.70711 11.2929L9 15.5858L18.2929 6.29289C18.6834 5.90237 19.3166 5.90237 19.7071 6.29289Z" fill="currentColor"/>
+              </svg>
+          </button>
+          <button
+            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="excluir(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+              <title>Deletar</title>
+              <path fill-rule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+          <button
+            class=" hidden flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Delete" onclick="cancel(this)">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 32 32">
+              <title>Cancelar</title>
+              <path d="M10.771 8.518c-1.144 0.215-2.83 2.171-2.086 2.915l4.573 4.571-4.573 4.571c-0.915 0.915 1.829 3.656 2.744 2.742l4.573-4.571 4.573 4.571c0.915 0.915 3.658-1.829 2.744-2.742l-4.573-4.571 4.573-4.571c0.915-0.915-1.829-3.656-2.744-2.742l-4.573 4.571-4.573-4.571c-0.173-0.171-0.394-0.223-0.657-0.173v0zM16 1c-8.285 0-15 6.716-15 15s6.715 15 15 15 15-6.716 15-15-6.715-15-15-15zM16 4.75c6.213 0 11.25 5.037 11.25 11.25s-5.037 11.25-11.25 11.25-11.25-5.037-11.25-11.25c0.001-6.213 5.037-11.25 11.25-11.25z"/>
+              </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_scripts %}
+
+<script>
+    function excluir(evt) {
+      swal({
+        title: "Tem certeza?",
+        text: "Este componete será eliminado",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e02424",
+        hoverColor:"#000000",
+        confirmButtonText: "Sim, exclua agora!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function() {
+        setTimeout(function() {
+          swal("Excluído!", "Componente eliminado", "success");
+        }, 200);
+      });
+      cancel(evt);
+    }
+    function selectModel(evt) {
+  var parentElement = evt.closest('.model');
+  var child = parentElement.querySelector('.bg-gray-50');
+  if (evt.value !== "-------") {
+    child.classList.remove("hidden");
+    child.querySelector('input').value = evt.value;
+  } else {
+    child.classList.add("hidden");
+    child.querySelector('input').value = '';
+  }
+}
+
+function editModel(evt) {
+  evt.parentNode.parentNode.querySelector('input').removeAttribute("disabled");
+
+  evt.classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(2)').classList.remove("hidden");
+  evt.parentNode.querySelector('button:nth-child(3)').classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(4)').classList.remove("hidden");
+
+}
+function newModel(evt) {
+  evt = evt.closest('.model');
+  evt.querySelector('.bg-gray-50').classList.remove("hidden");
+  evt.querySelector('input').removeAttribute("disabled");
+  evt.querySelector('input').value = "";
+  evt = evt.querySelector('.flex .justify-end').querySelector('button:nth-child(1)');
+  evt.classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(2)').classList.remove("hidden");
+  evt.parentNode.querySelector('button:nth-child(3)').classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(4)').classList.remove("hidden");
+
+}
+function cancel(evt) {
+  evt.parentNode.parentNode.querySelector('input').value = "";
+  evt.parentNode.parentNode.querySelector('input').setAttribute("disabled", "disabled");
+  evt.classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(2)').classList.add("hidden");
+  evt.parentNode.querySelector('button:nth-child(3)').classList.remove("hidden");
+  evt.parentNode.querySelector('button:nth-child(1)').classList.remove("hidden");
+
+}
+    </script>
+<script src="{% static 'assets/vendors/sweetalert/sweetalert-dev.js'%}"></script>
+  <script src="{% static 'assets/javascripts/jss/format.js'%}"></script>
+{% endblock extra_scripts %}

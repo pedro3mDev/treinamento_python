@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<title>Dashboard</title>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/vendors.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/algaworks.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/application.css' %}"/>
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+<div class="aw-layout-loading  js-loading-overlay">
+	<div class="aw-layout-loading__container">
+		<span class="aw-balls-spinner">Carregando...</span>
+	</div>
+</div>
+
+<div class="aw-layout-page">
+
+	<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar">
+	  <div class="container-fluid">
+
+	    <div class="navbar-header">
+	      <a class="navbar-brand  hidden-xs" href="#">
+	        <img alt="AlgaWorks" src="{% static 'assets/images/logo.png' %}"/>
+	      </a>
+
+	      <ul class="nav  navbar-nav">
+	        <li>
+	          <a href="#" class="js-sidebar-toggle"><i class="fa  fa-bars"></i></a>
+	        </li>
+	      </ul>
+	    </div>
+
+	    <ul class="nav navbar-nav  navbar-right">
+	    
+	      <li>
+	        <a href="#" class="js-search-modal-trigger-show"><i class="fa  fa-search"></i></a>
+	      </li>
+	      
+	      <li class="dropdown">
+	        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+	          <i class="fa  fa-envelope"></i> <span class="label  label-danger  aw-label-corner">48</span>
+	        </a>
+	                  
+	        <ul class="dropdown-menu">
+	          <li><a href="javascript:;">Item 1</a></li>
+	          <li><a href="javascript:;">Item 2</a></li>
+	        </ul>
+	      </li>
+	      
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	          <i class="fa  fa-user"></i>
+	        </a>
+	        
+	        <ul class="dropdown-menu">
+	          <li>
+	            <div class="aw-logged-user">
+	              <img src="https://api.adorable.io/avatars/80/joaodascouves" 
+	                width="80" height="80" alt="João das Couves" class="aw-logged-user__picture" />
+	              <span class="aw-logged-user__name">João das Couves</span>
+	            </div>
+	          </li>
+	          <li role="separator" class="divider"></li>
+	          <li><a href="#">Meu perfil</a></li>
+	          <li><a href="#">Alterar senha</a></li>
+	          <li><a href="#">Pagamentos</a></li>
+	        </ul>
+	      </li>
+	      
+	      <li>
+	        <a href="{% url 'management:logout_user' %}"><em class="fa  fa-sign-out"></em></a>
+	      </li> 
+	    </ul>
+
+	  </div>
+	</nav>
+
+	<aside class="aw-layout-sidebar  js-sidebar">
+		<div class="aw-layout-sidebar__content">
+
+    <nav class="aw-menu  js-menu">
+      <ul class="aw-menu__list">
+
+        <li class="aw-menu__item">
+          <a href="dashboard.html"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
+        </li>
+
+        <li class="aw-menu__item  is-active">
+          <a href="#">
+            <i class="fa  fa-fw  fa-file-text"></i><span>Cadastros</span>
+            <i class="aw-menu__navigation-icon  fa"></i>
+          </a>
+      
+          <ul class="aw-menu__list  aw-menu__list--sublist">
+            <li class="aw-menu__item  aw-menu__item--link"><a href="cadastro-funcionario.html">Cadastro de produto</a></li>
+            <li class="aw-menu__item  aw-menu__item--link  is-active"><a href="pesquisa-produtos.html">Pesquisa de produtos</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="tabela-sem-dados.html">Tabela sem dados</a></li>
+          </ul>
+        </li>
+
+        <li class="aw-menu__item  is-expanded">
+          <a href="#">
+            <i class="fa  fa-fw  fa-file-text"></i><span>Páginas comuns</span>
+            <i class="aw-menu__navigation-icon  fa"></i>
+          </a>
+
+          <ul class="aw-menu__list  aw-menu__list--sublist">
+            <li class="aw-menu__item  aw-menu__item--link"><a href="{% url 'management:pagina_vazia' %}">Página vazia</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="login.html">Login</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="cadastro.html">Cadastro</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="esqueceu-a-senha.html">Esqueceu a senha</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="403.html">403</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="404.html">404</a></li>
+            <li class="aw-menu__item  aw-menu__item--link"><a href="500.html">500</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+		</div>
+	</aside>
+
+	<section class="aw-layout-content  js-content">
+
+
+<div class="page-header">
+  <div class="container-fluid">
+    <h1>
+      Dashboard
+    </h1>
+  </div>
+</div>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-bank  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">R$983.433,20</div>
+        <div class="aw-box__title">Faturamento total</div>
+      </div>
+    
+    </div>
+
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-usd  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">R$343.542,59</div>
+        <div class="aw-box__title">Faturamento no ano</div>
+      </div>
+    
+    </div>
+    
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-heartbeat  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">R$40.233,40</div>
+        <div class="aw-box__title">Faturamento no mês</div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-users  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">1.298</div>
+        <div class="aw-box__title">Total de clientes</div>
+      </div>
+    
+    </div>
+    
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-battery-empty  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">123</div>
+        <div class="aw-box__title">Produtos sem estoque</div>
+      </div>
+    
+    </div>
+    
+    <div class="col-sm-4">
+    
+      <div class="aw-box">
+        <div class="aw-box__icon">
+          <i class="fa  fa-truck  fa-3x"></i>
+        </div>
+        <div class="aw-box__value">3.344</div>
+        <div class="aw-box__title">Estoque total</div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="aw-graph-box">
+        <div class="aw-graph-box__header">
+          <h2 class="aw-graph-box__title">Faturamento por mês <small>últimos 12 meses</small></h2>
+        </div>
+        <div class="aw-graph-box__content">
+          <div class="aw-graph-box__no-data">
+              <i class="fa  fa-line-chart  fa-2x"></i>
+              <span>Não há dados</span>
+          </div>
+
+          <div>
+            <canvas id="lineChart" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="aw-graph-box">
+        <div class="aw-graph-box__header">
+          <h2 class="aw-graph-box__title">Faturamento por representante <small>últimos 12 meses</small></h2>
+        </div>
+        <div class="aw-graph-box__content" style="position: relative">
+          <div class="aw-graph-box__no-data">
+              <i class="fa  fa-line-chart  fa-2x"></i>
+              <span>Não há dados</span>
+          </div>
+
+          <div>
+            <canvas id="lineChart" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+	</section>
+	
+	<footer class="aw-layout-footer  js-content">
+		<div class="container-fluid">
+			<span class="aw-footer-disclaimer">&copy; 2016 AlgaWorks. Todos os direitos reservados.</span>
+		</div>
+	</footer>
+
+</div>
+
+<div class="aw-search-modal  js-search-modal">
+	<form action="#" class="aw-search-modal__form">
+		<input class="aw-search-modal__input  js-search-modal-input" type="text" placeholder="O que você está procurando?"/>
+		<div class="aw-search-modal__input-icon">
+			<i class="glyphicon  glyphicon-search  js-search-modal-go"></i>
+		</div>
+	</form>
+	
+	<div class="aw-search-modal__controls">
+		<i class="glyphicon glyphicon-remove  js-search-modal-close"></i>
+	</div>
+</div>
+
+<script src="{% static 'assets/javascripts/vendors.js'%}"></script>
+<script src="{% static 'assets/javascripts/algaworks.js' %}"></script>
+
+</body>
+</html>
